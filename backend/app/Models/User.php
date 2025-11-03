@@ -22,6 +22,7 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
     ];
 
@@ -47,6 +48,8 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
+
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -61,5 +64,10 @@ class User extends Authenticatable implements JWTSubject
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+    //relation one to many with RefreshToken
+    public function refreshTokens()
+    {
+        return $this->hasMany(RefreshToken::class);
     }
 }
