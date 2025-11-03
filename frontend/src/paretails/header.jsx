@@ -49,19 +49,19 @@ export default function Header() {
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 shadow-md">
           <nav className="flex flex-col gap-4 p-6 text-gray-700 font-medium">
-            <a href="/" className="hover:text-orange-600">Accueil</a>
-            <a href="/menu" className="hover:text-orange-600">Menu</a>
-            <a href="/reservation" className="hover:text-orange-600">Réservation</a>
-            <a href="/contact" className="hover:text-orange-600">Contact</a>
+            <a href="/" className="hover:text-[#d4af37]">Accueil</a>
+            <a href="/menu" className="hover:text-[#d4af37]">Menu</a>
+            <a href="/reservation" className="hover:text-[#d4af37]">Réservation</a>
+            <a href="/contact" className="hover:text-[#d4af37]">Contact</a>
             <a
               href="/login"
-              className="px-4 py-2 border border-orange-500 text-orange-600 rounded-lg hover:bg-orange-50 transition text-center"
+              className="px-4 py-2 border border-[#d4af37] text-[#d4af37] rounded-lg hover:bg-orange-50 transition text-center"
             >
               Connexion
             </a>
             <a
               href="/register"
-              className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition text-center"
+              className="px-4 py-2 bg-[#d4af37] text-white rounded-lg shadow hover:bg-[#d4af37] transition text-center"
             >
               S’inscrire
             </a>
