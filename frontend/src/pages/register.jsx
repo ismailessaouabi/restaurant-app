@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "../paretails/header";
-import {useNavigate} from "react-router-dom";
-import image from "../assets/img-register.jpg";
+import {useNavigate, Link} from "react-router-dom";
+import { ChefHat } from "lucide-react";
 
 
 export default function Register() {
@@ -51,41 +51,45 @@ export default function Register() {
 
   return (
     <>
-    <Header />
-    <div className="min-h-screen w-full flex items-center px-16 justify-between bg-gradient-to-br from-orange-100 to-red-100 p-6">
-      <div className=" w-[45%] h-[50%] bg-amber-200">
-        <form className=" flex flex-col gap-3.5" >
-
-          <label >Nom complet
-            <input type="text" />
-          </label>
-
-          <select  >
-
-            <option value="">selecter votre role</option>
-            <option value="">Client</option>
-            <option value="">Admin</option>
-            <option value="">chéf</option>
-          </select>
-
-          <label >Email
-            <input type="email" />
-          </label>
-
-          <label >Mot de passe
-            <input type="password" />
-          </label>
-          <label >Confirmer mot de passe
-            <input type="password" />
-          </label>
-
+      <Header />
+      <section className="flex flex-col justify-start items-center gap-4 bg-[#191a1f] w-full h-fit text-white py-10">
+        <div className="flex gap-3 justify-center items-center">        
+          <ChefHat className="text-[#d4af37]  h-16 w-16" />
+          <h1 className="text-5xl font-bold">Create Your Account</h1>        
+        </div>
+        <p className="text-[#99999a] text-xl">Join us to make reservations and discover exclusive offers.</p>
+        <form onSubmit={StoreData} className="flex flex-col  gap-4 w-[510px] pt-7">
+          <div className="flex flex-col">
+            <label  >Full Name</label>
+            <input type="text" placeholder="Enter your full name " className="bg-[#2c2d33] border-none p-3 
+                                 focus:outline-1 focus:outline-[#d4af37] rounded-md  text-white" required/>
+          </div>
+          <div className="flex flex-col">
+            <label  >Email Adress</label>
+            <input type="email" placeholder="Enter your email adress " className="bg-[#2c2d33] border-none p-3 
+                                 focus:outline-1 focus:outline-[#d4af37] rounded-md  text-white" required/>
+          </div>
+          <div className="flex flex-col">
+            <label  >Password</label>
+            <input type="password" placeholder="Enter your password " className="bg-[#2c2d33] border-none p-3 
+                                 focus:outline-1 focus:outline-[#d4af37] rounded-md  text-white" required/>
+          </div>
+          <div className="flex flex-col">
+            <label  >Confirm Password</label>
+            <input type="password" placeholder="Enter your password " className="bg-[#2c2d33] border-none p-3 
+                                 focus:outline-1 focus:outline-[#d4af37] rounded-md  text-white" required/>
+          </div>
+          <button type="submit" className="bg-[#d4af37] text-white py-2 rounded-md 
+                               hover:bg-transparent hover:text-[#d4af37] border border-[#d4af37] 
+                               transition mt-4 font-semibold text-lg cursor-pointer">
+            Register
+          </button>         
         </form>
-      </div>
-      <div className="w-[35%] h-[50%] rounded-2xl overflow-hidden">
-        
-        <img src={image} alt="" />
-      </div>
-    </div>
+        <div>
+          <p className="pt-1 text-[#99999a]">Already have an account? <Link to="/login" className="text-[#d4af37] hover:underline">Login here</Link></p>
+        </div>
+      </section>
+   
     </>
   );
 }

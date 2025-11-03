@@ -5,32 +5,32 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-[#191a1f] shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <a href="/" className="text-2xl font-bold text-orange-600 flex items-center gap-2">
+        <a href="/" className="text-2xl font-bold text-white flex items-center gap-2 hover:text-[#d4af37] transition">
           🍴 RestaurantApp
         </a>
 
         {/* Menu desktop */}
-        <nav className="hidden md:flex gap-8 text-gray-700 font-medium">
-          <a href="/" className="hover:text-orange-600 transition">Accueil</a>
-          <a href="/menu" className="hover:text-orange-600 transition">Menu</a>
-          <a href="/reservation" className="hover:text-orange-600 transition">Réservation</a>
-          <a href="/contact" className="hover:text-orange-600 transition">Contact</a>
+        <nav className="hidden md:flex gap-8 text-[#d4af37] font-medium">
+          <a href="/" className="text-white hover:text-[#d4af37] transition">Accueil</a>
+          <a href="/menu" className="text-white hover:text-[#d4af37] transition">Menu</a>
+          <a href="/reservation" className="text-white hover:text-[#d4af37] transition">Réservation</a>
+          <a href="/contact" className="text-white hover:text-[#d4af37] transition">Contact</a>
         </nav>
 
         {/* Boutons */}
         <div className="hidden md:flex gap-4">
           <a
             href="/login"
-            className="px-4 py-2 border border-orange-500 text-orange-600 rounded-lg hover:bg-orange-50 transition"
+            className="px-4 py-2 border border-white text-white rounded-lg hover:bg-[#d4af37] transition"
           >
             Connexion
           </a>
           <a
             href="/register"
-            className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition"
+            className="px-4 py-2 bg-[#d4af37] text-white border border-white rounded-lg shadow hover:bg-transparent transition"
           >
             S’inscrire
           </a>
