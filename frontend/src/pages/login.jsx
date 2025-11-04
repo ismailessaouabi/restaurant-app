@@ -9,7 +9,7 @@ export default function Login() {
 
       <section className="w-full min-h-screen flex justify-center items-center bg-[#191a1f] p-4 sm:p-6 md:p-10">
         <div
-          className="w-full max-w-[400px] rounded-2xl border border-[#414247] 
+          className="w-full max-w-[500px] rounded-2xl border border-[#414247] 
                      text-white shadow-2xl bg-[#2c2e32] flex flex-col justify-start 
                      items-center gap-5 p-5 sm:p-6 md:p-8"
         >

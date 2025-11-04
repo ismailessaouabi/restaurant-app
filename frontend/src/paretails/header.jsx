@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react"; // icônes
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,18 +23,18 @@ export default function Header() {
 
         {/* Boutons */}
         <div className="hidden md:flex gap-4">
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className="px-4 py-2 border border-white text-white rounded-lg hover:bg-[#d4af37] transition"
           >
             Connexion
-          </a>
-          <a
-            href="/register"
+          </Link>
+          <Link
+            to="/register"
             className="px-4 py-2 bg-[#d4af37] text-white border border-white rounded-lg shadow hover:bg-transparent transition"
           >
             S’inscrire
-          </a>
+          </Link>
         </div>
 
         {/* Bouton burger (mobile) */}
@@ -53,18 +54,18 @@ export default function Header() {
             <a href="/menu" className="hover:text-[#d4af37]">Menu</a>
             <a href="/reservation" className="hover:text-[#d4af37]">Réservation</a>
             <a href="/contact" className="hover:text-[#d4af37]">Contact</a>
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="px-4 py-2 border border-[#d4af37] text-[#d4af37] rounded-lg hover:bg-orange-50 transition text-center"
             >
               Connexion
-            </a>
-            <a
-              href="/register"
+            </Link>
+            <Link
+              to="/register"
               className="px-4 py-2 bg-[#d4af37] text-white rounded-lg shadow hover:bg-[#d4af37] transition text-center"
             >
               S’inscrire
-            </a>
+            </Link>
           </nav>
         </div>
       )}

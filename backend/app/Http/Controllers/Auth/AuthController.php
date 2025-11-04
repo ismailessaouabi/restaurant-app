@@ -1,119 +1,82 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Requests\Auth\RegisterRequest;
+use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
-
-class ApiAuthentificationController extends Controller
+class AuthController extends Controller
 {
-   // durée d'accès en minutes (ex: 15 minutes)
-   protected $accessTTL = 15;
+    // ✅ Register
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
 
-   // durée du refresh en jours
-   protected $refreshTTLDays = 30;
+        $user = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-   // le register : créer un utilisateur
-   public function register(RegisterRequest $request){
-         $data = $request->validated();
-         $user = User::create([
-              'name' => $data['name'],
-              'email' => $data['email'],
-              'role' => $data['role'],
-              'password' => bcrypt($data['password']),
-         ]);
-    
-         return response()->json(['message' => 'Utilisateur créé', 'user' => $user], 201);
-   }
+        // Générer un access token
+        $accessToken = JWTAuth::fromUser($user);
+        // Générer un refresh token (autre clé)
+        $refreshToken = JWTAuth::claims(['refresh' => true])->fromUser($user);
 
-   // login : vérifier les identifiants et renvoyer access + refresh token
-   public function login(Request $request){
-       $request->validate([
-           'email' => 'required|email',
-           'password' => 'required|string'
-       ]);
+        return response()->json([
+            'user' => $user,
+            'access_token' => $accessToken,
+            'refresh_token' => $refreshToken,
+            'token_type' => 'bearer',
+        ]);
+    }
 
-       $credentials = $request->only('email','password');
+    // ✅ Login
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
 
-       // définir la durée du token d'accès (minutes)
-       auth('api')->factory()->setTTL($this->accessTTL);
+        if (!$accessToken = JWTAuth::attempt($credentials)) {
+            return response()->json(['error' => 'Invalid credentials'], 401);
+        }
 
-       if (! $token = auth('api')->attempt($credentials)) {
-           return response()->json(['message' => 'Identifiants invalides'], 401);
-       }
+        $user = auth()->user();
+        $refreshToken = JWTAuth::claims(['refresh' => true])->fromUser($user);
 
-       $user = auth('api')->user();
+        return response()->json([
+            'user' => $user,
+            'access_token' => $accessToken,
+            'refresh_token' => $refreshToken,
+        ]);
+    }
 
-       // créer un refresh token : on stocke le hash en DB et on renvoie "id|validator" au client
-       $plain = Str::random(64);
-       $refresh = RefreshToken::create([
-           'user_id' => $user->id,
-           'token' => Hash::make($plain),
-           'ip' => $request->ip(),
-           'user_agent' => $request->header('User-Agent'),
-           'expires_at' => Carbon::now()->addDays($this->refreshTTLDays),
-       ]);
+    // ✅ Rafraîchir le token
+    public function refresh(Request $request)
+    {
+        try {
+            $refreshToken = $request->bearerToken();
+            $newAccessToken = JWTAuth::setToken($refreshToken)->refresh();
 
-       $refreshTokenToReturn = $refresh->id . '|' . $plain;
+            return response()->json([
+                'access_token' => $newAccessToken,
+                'token_type' => 'bearer'
+            ]);
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'Invalid refresh token'], 401);
+        }
+    }
 
-       return response()->json([
-           'access_token' => $token,
-           'token_type' => 'bearer',
-           'expires_in' => auth('api')->factory()->getTTL() * 60,
-           'refresh_token' => $refreshTokenToReturn
-       ]);
-   }
-
-   // rafraîchir le token d'accès avec le refresh token
-   public function refresh(Request $request){
-       $request->validate(['refresh_token' => 'required|string']);
-
-       $parts = explode('|', $request->input('refresh_token'));
-       if (count($parts) !== 2) {
-           return response()->json(['message' => 'Refresh token invalide'], 400);
-       }
-
-       [$id, $validator] = $parts;
-
-       $refresh = RefreshToken::find($id);
-       if (!$refresh
-           || $refresh->revoked
-           || $refresh->expires_at->isPast()
-           || ! Hash::check($validator, $refresh->token)) {
-           return response()->json(['message' => 'Refresh token invalide ou expiré'], 401);
-       }
-
-       $user = $refresh->user;
-
-       // on révoque l'ancien refresh token (rotation)
-       $refresh->update(['revoked' => true]);
-
-       // créer un nouveau refresh token
-       $plain = Str::random(64);
-       $newRefresh = RefreshToken::create([
-           'user_id' => $user->id,
-           'token' => Hash::make($plain),
-           'ip' => $request->ip(),
-           'user_agent' => $request->header('User-Agent'),
-           'expires_at' => Carbon::now()->addDays($this->refreshTTLDays),
-       ]);
-       $refreshTokenToReturn = $newRefresh->id . '|' . $plain;
-
-       // créer un nouveau access token
-       auth('api')->factory()->setTTL($this->accessTTL);
-       $newAccessToken = auth('api')->login($user);
-
-       return response()->json([
-           'access_token' => $newAccessToken,
-           'token_type' => 'bearer',
-           'expires_in' => auth('api')->factory()->getTTL() * 60,
-           'refresh_token' => $refreshTokenToReturn
-       ]);
-   }
-
-  
-
-   
+    // ✅ Déconnexion
+    public function logout()
+    {
+        auth()->logout();
+        return response()->json(['message' => 'Successfully logged out']);
+    }
 }
