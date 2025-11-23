@@ -5,9 +5,54 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/src/index.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
     <title>Vite + React</title>
+    <script>
+      tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#D4AF37",
+            "background-light": "#f8f6f6",
+            "background-dark": "#191a1f",
+            "surface-dark": "#2C2D33",
+            "muted": "#A9A9A9"
+          },
+          fontFamily: {
+            "display": ["Plus Jakarta Sans", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+    </script>
+    <style>
+      body {
+    background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=2574&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .backdrop-blur-xl {
+      --tw-backdrop-blur: blur(24px);
+  }
+  .material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+  }
+    </style>
   </head>
-  <body>
+  <body className="bg-background-dark font-display text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
