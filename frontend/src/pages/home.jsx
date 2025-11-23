@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Header from "../paretails/header";
 import Footer from "../paretails/footer";
 
@@ -13,10 +12,10 @@ export default function Home() {
                         <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tighter">Experience Culinary Excellence</h1>
                         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted">A symphony of flavors, crafted with passion and served with sophistication. Your unforgettable dining experience awaits.</p>
                         <div className="mt-8 flex justify-center gap-4">
-                            <a className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#191a1f] text-base font-bold leading-normal tracking-wide hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-dark transition-colors" href="#">
+                            <a className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#191a1f] text-base font-bold leading-normal tracking-wide hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-dark transition-colors" href="/">
                                 Make a Reservation
                             </a>
-                            <a className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-surface-dark text-white text-base font-bold leading-normal tracking-wide hover:bg-surface-dark/80 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-dark transition-colors" href="#">
+                            <a className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-surface-dark text-white text-base font-bold leading-normal tracking-wide hover:bg-surface-dark/80 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-dark transition-colors" href="/">
                                 View Our Menu
                             </a>
                         </div>
@@ -101,7 +100,7 @@ export default function Home() {
                         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">Ready for an Unforgettable Meal?</h2>
                         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted">Secure your table and let us take care of the rest. We look forward to welcoming you.</p>
                         <div className="mt-8">
-                            <a className="inline-flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#191a1f] text-base font-bold leading-normal tracking-wide hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-dark transition-colors" href="#">
+                            <a className="inline-flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#191a1f] text-base font-bold leading-normal tracking-wide hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-dark transition-colors" href="/">
                                 Book Your Table Now
                             </a>
                         </div>
